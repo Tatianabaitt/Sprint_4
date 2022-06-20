@@ -25,7 +25,7 @@ public class Account {
         }
     }
 
-    private int spaceCount(){
+    private int spaceCount() {
         int spaceCount = 0;
         for (char c : name.toCharArray()) {
             if (c == ' ') {
@@ -34,5 +34,4 @@ public class Account {
         }
         return spaceCount;
     }
-
 }
