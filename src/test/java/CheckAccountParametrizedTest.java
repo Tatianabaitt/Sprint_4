@@ -9,23 +9,28 @@ import static org.junit.Assert.assertEquals;
 public class CheckAccountParametrizedTest {
     private final String account;
     private final boolean expected;
+    private final String message;
 
-    public CheckAccountParametrizedTest(String account, boolean expected) {
+    public CheckAccountParametrizedTest(String account, boolean expected, String message) {
         this.account = account;
         this.expected = expected;
+        this.message=message;
     }
 
     @Parameterized.Parameters // добавили аннотацию
     public static Object[][] getHaveMane() {
         return new Object[][]{
-                {"Timofeeva Tatiana", true},
-                {"Тимофеева Татьяна", true},
-                {"Timof eeva Tatiana", false},
-                {"", false},
-                {"         ", false},
-                {"Timofeeva Tatianaaaaaaaaaaaaa", false},
-                {" TimofeevaTatiana", false},
-                {"TimofeevaTatiana ", false},
+                {"Timofeeva Tatiana", true, "Не пройден тест на определение корректной строки на английском языке"},
+                {"Тимофеева Татьяна", true, "Не пройден тест на определение корректной строки на русском языке"},
+                {"Timof eeva Tatiana", false, "Не пройден тест на проверку количества пробелов в переданной строке"},
+                {"", false, "Не пройден тест на проверку, что передана пустая строка"},
+                {"         ", false, "Не пройден тест на проверку строки, состоящей из одних пробелов"},
+                {"Tatiana Timofeevaaaa", false, "Строка из 20 символов. Не пройден тест на проверку длины строки"},
+                {"T T", true, "Строка из 3 символов. Не пройден тест на проверку длины строки"},
+                {"TЕ", false, "Строка из 2 символов. Не пройден тест на проверку длины строки"},
+                {"Tatiana Timofeevaaa", true, "Строка из 19 символов. Не пройден тест на проверку длины строки"},
+                {" TimofeevaTatiana", false, "Не пройден тест на проверку, что на первом месте в строке пробел"},
+                {"TimofeevaTatiana ", false, "Не пройден тест на проверку, что на последнем месте в строке пробел"},
         };
     }
 
@@ -33,6 +38,6 @@ public class CheckAccountParametrizedTest {
     public void checkAccount() {
         Account testaccount = new Account(account);
         boolean actual = testaccount.checkNameToEmboss();
-        assertEquals(expected, actual);
+        assertEquals(message, expected, actual);
     }
 }
