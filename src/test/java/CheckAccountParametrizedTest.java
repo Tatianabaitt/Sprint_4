@@ -42,17 +42,17 @@ public class CheckAccountParametrizedTest {
         assertResult(this.message, this.expected, actual);
     }
 
-    @Step("Create account")
+    @Step("Creating account")
     public Account createAccount(String account) {
         return new Account(account);
     }
 
-    @Step("Check name")
+    @Step("Сhecking name")
     public boolean checkAccount(Account account) {
         return account.checkNameToEmboss();
     }
 
-    @Step("Assert expected and actual")
+    @Step("Сhecking actual and expected results")
     public void assertResult(String message, boolean expected, boolean actual) {
         assertEquals(message, expected, actual);
     }
