@@ -2,7 +2,6 @@ import io.qameta.allure.Step;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import io.qameta.allure.junit4.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -44,17 +43,17 @@ public class CheckAccountParametrizedTest {
     }
 
     @Step("Create account")
-    public Account createAccount(String account){
+    public Account createAccount(String account) {
         return new Account(account);
     }
 
     @Step("Check name")
-    public boolean checkAccount(Account account){
+    public boolean checkAccount(Account account) {
         return account.checkNameToEmboss();
     }
 
     @Step("Assert expected and actual")
-    public void assertResult(String message, boolean expected, boolean actual){
+    public void assertResult(String message, boolean expected, boolean actual) {
         assertEquals(message, expected, actual);
     }
 }

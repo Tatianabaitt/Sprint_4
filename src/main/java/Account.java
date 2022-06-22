@@ -6,7 +6,7 @@ public class Account {
     }
 
     public boolean checkNameToEmboss() {
-        if (name == null){
+        if (name == null) {
             return false;
         }
         boolean nameIsNotBlank = !name.isBlank();
