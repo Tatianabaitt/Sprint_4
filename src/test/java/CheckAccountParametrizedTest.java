@@ -1,3 +1,4 @@
+import io.qameta.allure.Step;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -36,10 +37,24 @@ public class CheckAccountParametrizedTest {
     }
 
     @Test
-    @DisplayName("Check Account")
-    public void checkAccount() {
-        Account testaccount = new Account(account);
-        boolean actual = testaccount.checkNameToEmboss();
+    public void checkAccountTest() {
+        Account testaccount = createAccount(this.account);
+        boolean actual = checkAccount(testaccount);
+        assertResult(this.message, this.expected, actual);
+    }
+
+    @Step("Create account")
+    public Account createAccount(String account){
+        return new Account(account);
+    }
+
+    @Step("Check name")
+    public boolean checkAccount(Account account){
+        return account.checkNameToEmboss();
+    }
+
+    @Step("Assert expected and actual")
+    public void assertResult(String message, boolean expected, boolean actual){
         assertEquals(message, expected, actual);
     }
 }
