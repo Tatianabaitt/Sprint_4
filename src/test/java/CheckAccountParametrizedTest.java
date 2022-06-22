@@ -1,7 +1,7 @@
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
+import io.qameta.allure.junit4.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,12 +14,13 @@ public class CheckAccountParametrizedTest {
     public CheckAccountParametrizedTest(String account, boolean expected, String message) {
         this.account = account;
         this.expected = expected;
-        this.message=message;
+        this.message = message;
     }
 
     @Parameterized.Parameters // добавили аннотацию
     public static Object[][] getHaveMane() {
         return new Object[][]{
+                {null, false, "Не пройден тест на обработку строки, со значением null"},
                 {"Timofeeva Tatiana", true, "Не пройден тест на определение корректной строки на английском языке"},
                 {"Тимофеева Татьяна", true, "Не пройден тест на определение корректной строки на русском языке"},
                 {"Timof eeva Tatiana", false, "Не пройден тест на проверку количества пробелов в переданной строке"},
@@ -35,6 +36,7 @@ public class CheckAccountParametrizedTest {
     }
 
     @Test
+    @DisplayName("Check Account")
     public void checkAccount() {
         Account testaccount = new Account(account);
         boolean actual = testaccount.checkNameToEmboss();
